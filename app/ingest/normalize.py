@@ -65,7 +65,7 @@ def argmax(x, y, criteria=None):
     fx, fy = x, y
     if criteria:
         fx, fy = criteria(x), criteria(y)
-    return x if fx > fy else y
+    return y if fy > fx else x
 
 
 class Hotels:
