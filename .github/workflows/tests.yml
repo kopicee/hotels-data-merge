@@ -17,14 +17,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2 # Checking out the repo
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+          cache: "pipenv"
 
-    - name: Install dependencies
-      uses: VaultVulp/action-pipenv@v2.0.1
-      with:
-        command: install -d  # Install all dependencies, including development ones
-    
-    - name: Test
-      uses: VaultVulp/action-pipenv@v2.0.1
-      with:
-        command: run test
+      - name: Install pipenv
+        uses: tiagovrtr/actions-pipenv@v1
+        with:
+          pipenv-version: "v2023.7.23"
+
+      - name: Run tests
+        run: pipenv run tests
