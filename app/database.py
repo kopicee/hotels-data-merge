@@ -26,6 +26,9 @@ class Database:
 
 
     def find(self, hotel_ids: List[str], destination_ids=List[str]) -> List[Hotel]:
+        """
+        Equivalent to SELECT * ... WHERE id IN (?, ...) AND destination_ids IN (?, ...)
+        """
         hotel_ids = hotel_ids or list(self.table.keys())
         destination_ids = destination_ids or [h.destination_id for h in self.table.values()]
 

@@ -18,7 +18,7 @@ class Controller:
         def redirect_to_docs():
             return '/docs'
 
-        @router.get('/api/v1/hotels')
+        @router.get('/api/v1/hotels', tags=['Hotels'])
         def get_hotels(hotels: Annotated[List[str], Query(description='List of hotel IDs')] = None,
                        destinations: Annotated[List[str], Query(description='List of destination IDs')] = None
                        ) -> List[Hotel]:
