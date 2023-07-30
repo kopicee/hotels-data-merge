@@ -4,7 +4,7 @@ install:
 	pipenv install
 
 run:
-	python3 src/main.py
+	pipenv run app
 
 test:
-	pytest
+	pipenv run test
