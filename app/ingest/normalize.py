@@ -32,7 +32,7 @@ class Addresses:
 
 class Amenities:
     @classmethod
-    def to_normalized_tags(cls, items: List[str]) -> List[str]:
+    def to_normalized_tags(cls, *items: List[str]) -> List[str]:
         tags = [
             cls.normalize_tag(item)
             for item in items
@@ -87,7 +87,7 @@ class Hotels:
                 lng=argmax(curr.location.lng, next.location.lng, lat_long_precision),
                 address=argmax(curr.location.address, next.location.address, len),
                 city=argmax(curr.location.city, next.location.city, len),
-                country=argmax(curr.location.city, next.location.city, len),
+                country=argmax(curr.location.country, next.location.country, len),
             ),
 
             # For amenities and images, merge everything
@@ -112,5 +112,5 @@ class Hotels:
         h.location.address = Addresses.normalize_address_line(h.location.address)
         h.location.city = h.location.city.strip()
         h.location.country = h.location.country.strip()
-        h.amenities.general = Amenities.to_normalized_tags(h.amenities.general)
-        h.amenities.room = Amenities.to_normalized_tags(h.amenities.room)
+        h.amenities.general = Amenities.to_normalized_tags(*h.amenities.general)
+        h.amenities.room = Amenities.to_normalized_tags(*h.amenities.room)
