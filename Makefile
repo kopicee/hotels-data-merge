@@ -7,4 +7,4 @@ run:
 	pipenv run app
 
 test:
-	pipenv run test
+	pipenv run tests
