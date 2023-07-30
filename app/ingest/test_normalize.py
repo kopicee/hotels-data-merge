@@ -25,8 +25,8 @@ def test_to_normalized_tags():
 def test_lat_long_precision():
     assert lat_long_precision(1.23) == 2, 'should return number of decimal places'
     assert lat_long_precision(1) == -1, 'non-float should return -1'
-    assert lat_long_precision(Consts.EMPTY_LATITUDE) == -1, 'EMPTY_LATITUDE should return -1'
-    assert lat_long_precision(Consts.EMPTY_LONGITUDE) == -1, 'EMPTY_LONGITUDE should return -1'
+    assert lat_long_precision(Consts.EMPTY_LATLONG) == -1, 'EMPTY_LATLONG should return -1'
+    assert lat_long_precision(Consts.EMPTY_LATLONG) == -1, 'EMPTY_LATLONG should return -1'
 
 
 def test_argmax():
@@ -49,7 +49,7 @@ def test_hotels_normalize():
         # For location, prefer more precision/verbosity
         location=model.Location(
             lat=123.4,
-            lng=Consts.EMPTY_LONGITUDE,
+            lng=Consts.EMPTY_LATLONG,
             address='  address  ',
             city='  city ',
             country='  country ',

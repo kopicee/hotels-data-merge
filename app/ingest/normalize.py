@@ -7,8 +7,7 @@ from app import model
 
 
 class Consts:
-    EMPTY_LATITUDE = -999.999
-    EMPTY_LONGITUDE = -999.999
+    EMPTY_LATLONG = -999.999
 
 
 class Strings:
@@ -31,7 +30,7 @@ class Addresses:
 
     @staticmethod
     def is_valid_latlong(x: float) -> bool:
-        if x == Consts.EMPTY_LONGITUDE or x == Consts.EMPTY_LATITUDE:
+        if x == Consts.EMPTY_LATLONG:
             return False
         if type(x) != float:
             return False

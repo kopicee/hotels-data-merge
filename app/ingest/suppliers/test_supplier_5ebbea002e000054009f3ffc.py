@@ -38,13 +38,13 @@ def test_to_hotel_zero_lat_long():
     )
 
     h1 = dto.to_hotel()
-    assert h1.location.lat == Consts.EMPTY_LATITUDE
-    assert h1.location.lng == Consts.EMPTY_LONGITUDE
+    assert h1.location.lat == Consts.EMPTY_LATLONG
+    assert h1.location.lng == Consts.EMPTY_LATLONG
 
     dto.Latitude = ''
     dto.Longitude = ''
-    assert h1.location.lat == Consts.EMPTY_LATITUDE
-    assert h1.location.lng == Consts.EMPTY_LONGITUDE
+    assert h1.location.lat == Consts.EMPTY_LATLONG
+    assert h1.location.lng == Consts.EMPTY_LATLONG
 
 
 def test_join_address():

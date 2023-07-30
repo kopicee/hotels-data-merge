@@ -81,8 +81,8 @@ class DTO:
             name=self.name or '',
             description=self.info or '',
             location=model.Location(
-                lat=self.lat or Consts.EMPTY_LATITUDE,
-                lng=self.lng or Consts.EMPTY_LONGITUDE,
+                lat=self.lat or Consts.EMPTY_LATLONG,
+                lng=self.lng or Consts.EMPTY_LATLONG,
                 address=self.address or '',
                 city='',
                 country='',

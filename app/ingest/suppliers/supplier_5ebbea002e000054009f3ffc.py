@@ -61,8 +61,8 @@ class DTO:
             name=self.Name or '',
             description='',
             location=model.Location(
-                lat=float(self.Latitude or Consts.EMPTY_LATITUDE),
-                lng=float(self.Longitude or Consts.EMPTY_LONGITUDE),
+                lat=float(self.Latitude or Consts.EMPTY_LATLONG),
+                lng=float(self.Longitude or Consts.EMPTY_LATLONG),
                 address=self.join_address(self.Address, self.PostalCode),
                 city=self.City or '',
                 country=Addresses.country_from_iso(self.Country) if self.Country else '',

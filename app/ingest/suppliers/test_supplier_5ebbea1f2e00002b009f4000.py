@@ -33,6 +33,6 @@ def test_to_hotel_zero_lat_long():
         address='address',
         amenities=None
     ).to_hotel()
-    assert hotel.location.lat == Consts.EMPTY_LATITUDE
-    assert hotel.location.lng == Consts.EMPTY_LONGITUDE
+    assert hotel.location.lat == Consts.EMPTY_LATLONG
+    assert hotel.location.lng == Consts.EMPTY_LATLONG
 
