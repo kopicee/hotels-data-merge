@@ -29,6 +29,14 @@ class Addresses:
         lines = s.split(',')
         return ', '.join(line.strip() for line in lines)
 
+    @staticmethod
+    def is_valid_latlong(x: float) -> bool:
+        if x == Consts.EMPTY_LONGITUDE or x == Consts.EMPTY_LATITUDE:
+            return False
+        if type(x) != float:
+            return False
+        return abs(x) <= 180
+
 
 class Amenities:
     @classmethod
@@ -50,11 +58,7 @@ class Amenities:
 
 
 def lat_long_precision(x: float):
-    if x == Consts.EMPTY_LATITUDE or x == Consts.EMPTY_LONGITUDE:
-        return -1
-
-    # Choose the option with higher precision
-    if type(x) != float:
+    if not Addresses.is_valid_latlong(x):
         return -1
 
     decimals = str(x).split('.')[1]
@@ -114,3 +118,7 @@ class Hotels:
         h.location.country = h.location.country.strip()
         h.amenities.general = Amenities.to_normalized_tags(*h.amenities.general)
         h.amenities.room = Amenities.to_normalized_tags(*h.amenities.room)
+
+        if not (Addresses.is_valid_latlong(h.location.lat) and Addresses.is_valid_latlong(h.location.lng)):
+            h.location.lat = None
+            h.location.lng = None

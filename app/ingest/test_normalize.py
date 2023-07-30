@@ -34,3 +34,43 @@ def test_argmax():
     assert argmax('a', 'abcde', len) == 'abcde'
     assert argmax('a', 'b', len) == 'a'
     assert argmax(1.2, 1.234, lat_long_precision) == 1.234
+
+
+def test_hotels_normalize():
+    h = model.Hotel(
+        # Assume these don't change
+        id='id',
+        destination_id=12345,
+
+        # For name and description, more verbose is better
+        name='  name   ',
+        description='   description ',
+
+        # For location, prefer more precision/verbosity
+        location=model.Location(
+            lat=123.4,
+            lng=Consts.EMPTY_LONGITUDE,
+            address='  address  ',
+            city='  city ',
+            country='  country ',
+        ),
+
+        # For amenities and images, merge everything
+        amenities=model.Amenities(
+            general=['WiFi', 'DryCleaning', 'dry cleaning'],
+            room=[],
+        ),
+        images=model.Images(rooms=[], site=[], amenities=[]),
+        booking_conditions=[]
+    )
+
+    Hotels.normalize(h)
+
+    assert h.name == 'name'
+    assert h.description == 'description'
+    assert h.location.lat == None, 'invalid longitude should make lat/lng empty'
+    assert h.location.lng == None, 'invalid longitude should make lat/lng empty'
+    assert h.location.address == 'address'
+    assert h.location.city == 'city'
+    assert h.location.country == 'country'
+    assert h.amenities.general == ['dry cleaning', 'wifi']
