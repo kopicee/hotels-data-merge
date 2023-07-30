@@ -18,10 +18,10 @@ class Controller:
         def redirect_to_docs():
             return '/docs'
 
-        @router.get('/api/hotels')
+        @router.get('/api/v1/hotels')
         def get_hotels(hotels: Annotated[List[str], Query(description='List of hotel IDs')] = None,
-                    destinations: Annotated[List[str], Query(description='List of destination IDs')] = None
-                    ) -> List[Hotel]:
+                       destinations: Annotated[List[str], Query(description='List of destination IDs')] = None
+                       ) -> List[Hotel]:
             return self.db.find(hotels, destinations)
 
         return router
