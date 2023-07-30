@@ -16,7 +16,7 @@ pipenv shell
 pipenv install
 ```
 
-Run tests or start app:
+Run tests and start app:
 ```sh
 pipenv run tests
 pipenv run app
