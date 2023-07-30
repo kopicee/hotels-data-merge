@@ -1,5 +1,6 @@
 from collections import defaultdict
 from functools import reduce
+import threading
 from typing import List
 
 from rich.console import Console
@@ -13,11 +14,33 @@ from app import model
 console = Console()
 
 
-def extract_and_save(db: Database):
-    hotels_by_id = defaultdict(list)
+class ResultThread(threading.Thread):
+    def __init__(self, **kwargs):
+        self.result = None
 
-    for extract in get_extractors():  # TODO: parallel extracts
-        for hotel in extract():
+        target = kwargs['target']
+        def wrapped(*a, **k):
+            self.result = target(*a, **k)
+        kwargs['target'] = wrapped
+
+        super().__init__(**kwargs)
+
+
+def extract_and_save(db: Database):
+    threads = [
+        ResultThread(target=extract)
+        for extract in get_extractors()
+    ]
+
+    for t in threads:
+        t.start()
+
+    for t in threads:
+        t.join()
+
+    hotels_by_id = defaultdict(list)
+    for t in threads:
+        for hotel in t.result:
             hotels_by_id[hotel.id].append(hotel)
 
     for hotel_id, records in hotels_by_id.items():
