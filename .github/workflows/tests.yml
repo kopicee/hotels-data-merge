@@ -28,5 +28,8 @@ jobs:
         with:
           pipenv-version: "v2023.7.23"
 
+      - name: Install dependencies
+        run: pipenv install
+
       - name: Run tests
         run: pipenv run tests
