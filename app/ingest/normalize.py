@@ -37,7 +37,7 @@ class Amenities:
             cls.normalize_tag(item)
             for item in items
         ]
-        return list(set(tags))
+        return sorted(list(set(tags)))  # sorting is just for unit tests
             
 
     @staticmethod
