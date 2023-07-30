@@ -5,7 +5,7 @@ from dacite import from_dict
 import requests
 
 from app import model
-from app.ingest.normalize import Const, String, Address
+from app.ingest.normalize import Consts
 
 
 """
@@ -81,8 +81,8 @@ class DTO:
             name=self.name or '',
             description=self.info or '',
             location=model.Location(
-                lat=self.lat or Const.EMPTY_LATITUDE,
-                lng=self.lng or Const.EMPTY_LONGITUDE,
+                lat=self.lat or Consts.EMPTY_LATITUDE,
+                lng=self.lng or Consts.EMPTY_LONGITUDE,
                 address=self.address or '',
                 city='',
                 country='',

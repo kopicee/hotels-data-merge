@@ -5,7 +5,7 @@ from dacite import from_dict
 import requests
 
 from app import model
-from app.ingest.normalize import String, Address, Const
+from app.ingest.normalize import Addresses, Consts
 
 
 """
@@ -61,11 +61,11 @@ class DTO:
             name=self.Name or '',
             description='',
             location=model.Location(
-                lat=float(self.Latitude or Const.EMPTY_LATITUDE),
-                lng=float(self.Longitude or Const.EMPTY_LONGITUDE),
+                lat=float(self.Latitude or Consts.EMPTY_LATITUDE),
+                lng=float(self.Longitude or Consts.EMPTY_LONGITUDE),
                 address=self.join_address(self.Address, self.PostalCode),
                 city=self.City or '',
-                country=Address.country_from_iso(self.Country) if self.Country else '',
+                country=Addresses.country_from_iso(self.Country) if self.Country else '',
             ),
             amenities=model.Amenities(
                 general=self.Facilities or [],

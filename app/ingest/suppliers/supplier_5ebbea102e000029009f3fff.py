@@ -5,7 +5,6 @@ from dacite import from_dict
 import requests
 
 from app import model
-from app.ingest.normalize import String, Address
 
 
 """
