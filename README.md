@@ -23,3 +23,8 @@ pipenv run app
 ```
 
 Open the app at http://127.0.0.1:8000 to see the interactive Swagger API docs.
+
+
+## Modified response format
+
+- Added pagination support (simple offset/limit approach)
