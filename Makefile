@@ -16,4 +16,4 @@ do-run:
 	sudo docker run -it --rm -p 8000:8000 hotelsdatamerge:local run app
 
 do-test:
-	sudo docker run -it --rm -p 8000:8000 hotelsdatamerge:local run tests
+	sudo docker run -it --rm hotelsdatamerge:local run tests

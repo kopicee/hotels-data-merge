@@ -6,7 +6,6 @@
 ## Build, test and run
 
 Locally:
-
 ```sh
 # Install pipenv
 pip install pipenv
@@ -26,10 +25,10 @@ Using Docker:
 docker build . -t hotelsdatamerge:local
 
 # Run tests
-docker run -it --rm -p 8000:8000 hotelsdatamerge:local run app
+docker run -it --rm hotelsdatamerge:local run tests
 
 # Start app
-docker run -it --rm -p 8000:8000 hotelsdatamerge:local run tests
+docker run -it --rm -p 8000:8000 hotelsdatamerge:local run app
 ```
 
 
