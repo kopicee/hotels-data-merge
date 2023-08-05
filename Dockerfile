@@ -12,4 +12,5 @@ COPY . /etc/app/
 
 EXPOSE 8000
 
-CMD pipenv run app
+ENTRYPOINT ["pipenv"]
+CMD ["run", "app"]

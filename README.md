@@ -3,26 +3,39 @@
 [![Tests](https://github.com/kopicee/hotels-data-merge/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/kopicee/hotels-data-merge/actions/workflows/ci.yml)
 
 
-## Usage
+## Build, test and run
 
-Install pipenv:
+Locally:
+
 ```sh
+# Install pipenv
 pip install pipenv
-```
 
-Create a self-contained virtual environment to isolate dependencies, then install dependencies:
-```sh
+# Install dependencies in an isolated virtual environment:
 pipenv shell
 pipenv install
-```
 
-Run tests and start app:
-```sh
+# Run tests and start app
 pipenv run tests
 pipenv run app
 ```
 
-Open the app at http://127.0.0.1:8000 to see the interactive Swagger API docs.
+Using Docker:
+```sh
+# Build image
+docker build . -t hotelsdatamerge:local
+
+# Run tests
+docker run -it --rm -p 8000:8000 hotelsdatamerge:local run app
+
+# Start app
+docker run -it --rm -p 8000:8000 hotelsdatamerge:local run tests
+```
+
+
+## Usage
+
+- Open the app at http://127.0.0.1:8000 to see the interactive Swagger API docs.
 
 
 ## Modified response format

@@ -9,6 +9,11 @@ run:
 test:
 	pipenv run tests
 
-do-run:
+do-build:
 	sudo docker build . -t hotelsdatamerge:local
-	sudo docker run -it --rm -p 8000:8000 hotelsdatamerge:local
+
+do-run:
+	sudo docker run -it --rm -p 8000:8000 hotelsdatamerge:local run app
+
+do-test:
+	sudo docker run -it --rm -p 8000:8000 hotelsdatamerge:local run tests
