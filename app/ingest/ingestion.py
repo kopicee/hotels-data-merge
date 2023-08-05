@@ -1,6 +1,6 @@
 from collections import defaultdict
 from datetime import datetime
-from functools import partial, reduce
+from functools import reduce
 import threading
 from typing import List
 

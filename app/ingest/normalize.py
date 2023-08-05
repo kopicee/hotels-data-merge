@@ -4,7 +4,6 @@ from typing import List
 
 from babel import Locale
 from rich.console import Console
-from rich.table import Table
 
 from app import model
 
