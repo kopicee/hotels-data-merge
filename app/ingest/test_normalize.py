@@ -61,10 +61,13 @@ def test_hotels_normalize():
             room=[],
         ),
         images=model.Images(rooms=[], site=[], amenities=[]),
-        booking_conditions=[]
+        booking_conditions=[],
+        created_at=None,
+        updated_at=None,
     )
 
-    Hotels.normalize(h)
+    now = datetime(year=1991, month=12, day=25)
+    Hotels.normalize(h, now)
 
     assert h.name == 'name'
     assert h.description == 'description'
@@ -74,3 +77,5 @@ def test_hotels_normalize():
     assert h.location.city == 'city'
     assert h.location.country == 'country'
     assert h.amenities.general == ['dry cleaning', 'wifi']
+    assert h.created_at == now
+    assert h.updated_at == now

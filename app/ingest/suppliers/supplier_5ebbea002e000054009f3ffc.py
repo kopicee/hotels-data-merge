@@ -77,6 +77,8 @@ class DTO:
                 amenities=[],
             ),
             booking_conditions=[],
+            created_at=None,
+            updated_at=None,
         )
 
 

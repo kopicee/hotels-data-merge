@@ -1,5 +1,6 @@
 from collections import defaultdict
-from functools import reduce
+from datetime import datetime
+from functools import partial, reduce
 import threading
 from typing import List
 
@@ -44,16 +45,18 @@ def extract_and_save(db: Database):
             hotels_by_id[hotel.id].append(hotel)
 
     for hotel_id, records in hotels_by_id.items():
-        console.log(f'Merging hotel id: {hotel_id} from {len(records)} records')
+        console.line()
+        console.log(f'===== Merging hotel id: {hotel_id} from {len(records)} records')
         merged = merge(records)
         db.save(merged)
 
 
 def merge(hotels: List[model.Hotel]) -> model.Hotel:
+    now = datetime.now()
     h = reduce(
         Hotels.merge,
         hotels[1:],
-        hotels[0],
+        hotels[0],  # ideally, initial value is a pre-existing record in our db
     )
-    Hotels.normalize(h)
+    Hotels.normalize(h, now)
     return h

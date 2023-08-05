@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 from app.model import Hotel
 
@@ -25,16 +25,38 @@ class Database:
         self.table[h.id] = h
 
 
-    def find(self, hotel_ids: List[str], destination_ids=List[str]) -> List[Hotel]:
+    def _select(self, filter) -> List[Hotel]:
+        # Default sort order goes by name, ascending
+        rows = [
+            row for row in self.table.values()
+            if filter(row)
+        ]
+        return sorted(self.table.values(),
+                      key=lambda h: h.name)
+
+
+    def find(self,
+             hotel_ids: List[str],
+             destination_ids: List[str],
+             limit: int,
+             offset: int,
+             ) -> Tuple[List[Hotel], int]:
         """
         Equivalent to SELECT * ... WHERE id IN (?, ...) AND destination_ids IN (?, ...)
         """
         hotel_ids = hotel_ids or list(self.table.keys())
         destination_ids = destination_ids or [h.destination_id for h in self.table.values()]
 
-        rows: List[Hotel] = []
-        for h in self.table.values():
-            if (h.id in hotel_ids) and (h.destination_id in destination_ids):
-                rows.append(h)
+        filter = lambda h: (h.id in hotel_ids) and (h.destination_id in destination_ids)
+        matching_rows = self._select(filter)
+        total_count = len(matching_rows)
 
-        return rows
+        result: List[Hotel] = []
+        for i, h in enumerate(matching_rows):
+            if i < offset:
+                continue
+            if len(result) == limit:
+                break
+            result.append(h)
+
+        return result, total_count

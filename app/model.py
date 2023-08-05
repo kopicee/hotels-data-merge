@@ -1,5 +1,6 @@
 from dataclasses import dataclass
-from typing import List, Optional
+from datetime import datetime
+from typing import Any, List, Optional
 
 from pydantic import BaseModel
 
@@ -37,7 +38,8 @@ class Hotel(BaseModel):
     amenities: Amenities
     images: Images
     booking_conditions: List[str]
-
+    created_at: Optional[datetime]
+    updated_at: Optional[datetime]
 
     model_config = {
         'json_schema_extra': {
