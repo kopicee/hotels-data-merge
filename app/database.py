@@ -24,17 +24,6 @@ class Database:
         """
         self.table[h.id] = h
 
-
-    def _select(self, filter) -> List[Hotel]:
-        # Default sort order goes by name, ascending
-        rows = [
-            row for row in self.table.values()
-            if filter(row)
-        ]
-        return sorted(self.table.values(),
-                      key=lambda h: h.name)
-
-
     def find(self,
              hotel_ids: List[str],
              destination_ids: List[str],
@@ -44,14 +33,17 @@ class Database:
         """
         Equivalent to SELECT * ... WHERE id IN (?, ...) AND destination_ids IN (?, ...)
         """
-        hotel_ids = hotel_ids or list(self.table.keys())
-        destination_ids = destination_ids or [h.destination_id for h in self.table.values()]
+        matching_rows: List[Hotel] = []
+        for id, hotel in self.table.items():
+            is_match_id = True if not bool(hotel_ids) \
+                          else id in hotel_ids
+            is_match_destinations = True if not bool(destination_ids) \
+                                         else hotel.destination_id in destination_ids
+            if is_match_id and is_match_destinations:
+                matching_rows.append(hotel)
 
-        filter = lambda h: (h.id in hotel_ids) and (h.destination_id in destination_ids)
-        matching_rows = self._select(filter)
         total_count = len(matching_rows)
-
-        result: List[Hotel] = []
+        result = []
         for i, h in enumerate(matching_rows):
             if i < offset:
                 continue
